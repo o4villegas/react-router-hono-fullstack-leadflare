@@ -1,10 +1,15 @@
 name = "b2b-lead-generation-platform"
-main = "dist/index.js"
+main = "./workers/app.ts"
 compatibility_date = "2024-11-15"
 compatibility_flags = ["nodejs_compat"]
 
 [build]
 command = "npm run build"
+
+# Assets configuration for React Router v7
+[assets]
+directory = "./build/client"
+binding = "ASSETS"
 
 # D1 Database
 [[d1_databases]]
@@ -25,7 +30,13 @@ binding = "AI"
 
 # CORS Configuration
 [env.production]
-vars = { ENVIRONMENT = "production" }
+vars = { 
+  ENVIRONMENT = "production",
+  API_URL = "https://your-domain.com"
+}
 
 [env.development] 
-vars = { ENVIRONMENT = "development" }
+vars = { 
+  ENVIRONMENT = "development",
+  API_URL = "http://localhost:8787"
+}

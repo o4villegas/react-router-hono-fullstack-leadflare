@@ -1,16 +1,210 @@
-@import "tailwindcss" source(".");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --font-sans:
-    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 142.1 76.2% 36.3%;
+    --radius: 0.5rem;
+  }
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+@layer base {
+  * {
+    @apply border-border;
   }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+/* Loading animation for AI generation */
+@keyframes pulse-green {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-green {
+  animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+}
+
+.gradient-border {
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  padding: 1px;
+  border-radius: 8px;
+}
+
+.gradient-border-content {
+  background: #1f2937;
+  border-radius: 7px;
+  height: 100%;
+  width: 100%;
+}
+
+/* Hover effects for campaign cards */
+.campaign-card {
+  transition: all 0.3s ease;
+}
+
+.campaign-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.1);
+}
+
+/* Status indicator animations */
+.status-active {
+  animation: pulse-green 2s infinite;
+}
+
+/* Form input focus states */
+.input-focus:focus {
+  @apply ring-2 ring-green-500 border-green-500;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Button hover effects */
+.btn-primary {
+  @apply bg-green-500 text-black font-medium px-4 py-2 rounded-lg transition-all duration-200;
+}
+
+.btn-primary:hover {
+  @apply bg-green-400 shadow-lg;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+}
+
+.btn-secondary {
+  @apply bg-gray-700 text-gray-300 font-medium px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200;
+}
+
+.btn-secondary:hover {
+  @apply bg-gray-600 text-white;
+}
+
+/* AI generation loading states */
+.ai-generating {
+  background: linear-gradient(90deg, #374151, #4b5563, #374151);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Lead score badges */
+.score-high {
+  @apply bg-green-500/20 text-green-400 border-green-500/30;
+}
+
+.score-medium {
+  @apply bg-yellow-500/20 text-yellow-400 border-yellow-500/30;
+}
+
+.score-low {
+  @apply bg-red-500/20 text-red-400 border-red-500/30;
+}
+
+/* Table hover effects */
+.table-row:hover {
+  @apply bg-gray-800/30;
+}
+
+/* Navigation active states */
+.nav-active {
+  @apply text-green-400 bg-green-500/20;
+}
+
+/* Modal and overlay styles */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+/* Progress indicators */
+.progress-bar {
+  background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* Success/error states */
+.alert-success {
+  @apply bg-green-500/10 border border-green-500/30 text-green-400;
+}
+
+.alert-error {
+  @apply bg-red-500/10 border border-red-500/30 text-red-400;
+}
+
+.alert-warning {
+  @apply bg-yellow-500/10 border border-yellow-500/30 text-yellow-400;
+}
+
+.alert-info {
+  @apply bg-blue-500/10 border border-blue-500/30 text-blue-400;
+}
+
+/* React Router specific styles */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #4a5568;
+  border-top: 2px solid #10b981;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
