@@ -20,7 +20,7 @@
     "react-dom": "^18.3.1",
     "react-router": "^7.6.2",
     "hono": "^4.7.11",
-    "isbot": "^5.1.29",
+    "isbot": "^4.8.0",
     "lucide-react": "^0.263.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.6.0"
