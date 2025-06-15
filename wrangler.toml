@@ -1,15 +1,11 @@
 name = "b2b-lead-generation-platform"
-main = "./workers/app.ts"
+main = "./build/server/index.js"
 compatibility_date = "2024-11-15"
 compatibility_flags = ["nodejs_compat"]
 
+# React Router 7 builds everything for us
 [build]
 command = "npm run build"
-
-# Assets configuration for React Router v7
-[assets]
-directory = "./build/client"
-binding = "ASSETS"
 
 # D1 Database
 [[d1_databases]]
@@ -21,22 +17,19 @@ database_id = "a966011e-98ea-48b3-9633-4bce1b200438"
 [ai]
 binding = "AI"
 
-# Environment Variables (set via wrangler secret)
-# META_ACCESS_TOKEN
-# META_AD_ACCOUNT_ID  
-# OPENAI_API_KEY
-# ANTHROPIC_API_KEY
-# JWT_SECRET
+# Environment Variables (set these in Cloudflare Dashboard > Workers > Settings > Variables)
+# META_ACCESS_TOKEN (secret)
+# META_AD_ACCOUNT_ID (secret)
+# OPENAI_API_KEY (secret)
+# ANTHROPIC_API_KEY (secret)
+# JWT_SECRET (secret)
 
-# CORS Configuration
 [env.production]
 vars = { 
-  ENVIRONMENT = "production",
-  API_URL = "https://your-domain.com"
+  ENVIRONMENT = "production"
 }
 
 [env.development] 
 vars = { 
-  ENVIRONMENT = "development",
-  API_URL = "http://localhost:8787"
+  ENVIRONMENT = "development"
 }
