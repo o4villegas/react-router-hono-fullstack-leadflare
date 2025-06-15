@@ -15,7 +15,7 @@ binding = "ASSETS"
 [[d1_databases]]
 binding = "DB"
 database_name = "lead-generation-db"
-database_id = "your-database-id-here"
+database_id = "a966011e-98ea-48b3-9633-4bce1b200438"
 
 # AI Integration
 [ai]
