@@ -33,6 +33,10 @@
     "typescript": "^5.8.3",
     "vite": "^6.3.5",                   
     "wrangler": "^3.114.9"
+    "@cloudflare/vite-plugin": "^1.6.0",
+    "@tailwindcss/vite": "^4.1.10",
+    "autoprefixer": "^10.4.21"
+
   },
   "engines": {
     "node": ">=20.0.0"
