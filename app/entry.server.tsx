@@ -8,7 +8,7 @@ export default async function handleRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   routerContext: EntryContext,
-  _loadContext: AppLoadContext,
+  loadContext: AppLoadContext,
 ) {
   let shellRendered = false;
   const userAgent = request.headers.get("user-agent");
@@ -18,24 +18,30 @@ export default async function handleRequest(
     {
       onError(error: unknown) {
         responseStatusCode = 500;
-        // Log streaming rendering errors from inside the shell.  Don't log
-        // errors encountered during initial shell rendering since they'll
-        // reject and get logged in handleDocumentRequest.
+        // Log streaming rendering errors from inside the shell
         if (shellRendered) {
-          console.error(error);
+          console.error("Streaming render error:", error);
         }
+      },
+      onShellError(error: unknown) {
+        // Log shell rendering errors
+        console.error("Shell render error:", error);
+        responseStatusCode = 500;
       },
     },
   );
+  
   shellRendered = true;
 
-  // Ensure requests from bots and SPA Mode renders wait for all content to load before responding
-  // https://react.dev/reference/react-dom/server/renderToPipeableStream#waiting-for-all-content-to-load-for-crawlers-and-static-generation
+  // Wait for bots and SPA mode to fully load content
   if ((userAgent && isbot(userAgent)) || routerContext.isSpaMode) {
     await body.allReady;
   }
 
-  responseHeaders.set("Content-Type", "text/html");
+  // Set proper headers for Cloudflare Workers
+  responseHeaders.set("Content-Type", "text/html; charset=utf-8");
+  responseHeaders.set("Cache-Control", "public, max-age=300, s-maxage=3600");
+  
   return new Response(body, {
     headers: responseHeaders,
     status: responseStatusCode,
