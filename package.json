@@ -1,48 +1,36 @@
 {
-  "name": "react-router-hono-fullstack-leadflare",
-  "description": "A modern full-stack template powered by Cloudflare Workers, using Hono for backend APIs, React Router for frontend routing, and shadcn/ui for beautiful, accessible components styled with Tailwind CSS",
-  "private": true,
+  "name": "b2b-lead-generation-platform",
+  "version": "1.0.0",
+  "description": "AI-powered B2B lead generation platform with Meta integration",
   "type": "module",
-  "cloudflare": {
-    "label": "React Router + Hono Fullstack App",
-    "products": [
-      "Workers"
-    ],
-    "categories": [
-      "starter"
-    ],
-    "docs_url": "https://developers.cloudflare.com/workers",
-    "preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/cd71c67a-253f-477d-022c-2f90cb4b3d00/public",
-    "icon_urls": [],
-    "publish": true
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && wrangler deploy",
+    "cf-typegen": "wrangler types",
+    "db:generate": "wrangler d1 execute lead-generation-db --file=./src/schemas/database.sql",
+    "db:seed": "wrangler d1 execute lead-generation-db --file=./src/schemas/seed.sql"
   },
   "dependencies": {
-    "hono": "4.7.7",
-    "isbot": "5.1.26",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-router": "7.5.2"
+    "hono": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "lucide-react": "^0.263.1",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.0.8",
-    "@cloudflare/workers-types": "^4.20250425.0",
-    "@react-router/dev": "7.5.2",
-    "@tailwindcss/vite": "4.1.4",
-    "@types/node": "22.14.1",
-    "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4",
-    "tailwindcss": "4.1.1",
-    "typescript": "5.8.3",
-    "vite": "6.3.2",
-    "vite-tsconfig-paths": "5.1.4",
-    "wrangler": "4.13.2"
-  },
-  "scripts": {
-    "build": "react-router build",
-    "cf-typegen": "wrangler types",
-    "deploy": "npm run build && wrangler deploy",
-    "dev": "react-router dev",
-    "preview": "npm run build && vite preview",
-    "typecheck": "npm run cf-typegen && react-router typegen && tsc -b"
+    "@cloudflare/workers-types": "^4.20231121.0",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.1.1",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0",
+    "wrangler": "^3.15.0"
   }
 }
